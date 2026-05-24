@@ -26,3 +26,7 @@ def home():
 def create_todo(todo:Todo):
     todos.append(todo)
     return todo
+
+@app.get("/todos/{todo_id}")
+def get_todo(todo_id: int):
+    return todos[todo_id]
