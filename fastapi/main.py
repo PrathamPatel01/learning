@@ -1,7 +1,28 @@
-from fastapi import FastAPI
+# from fastapi import FastAPI
 
+# app = FastAPI()
+
+# @app.get("/get")
+# def home():
+#     return {"message": "working"}
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+ 
 app = FastAPI()
 
-@app.get("/get")
+todos = []
+
+class Todo(BaseModel):
+    title: str
+    completed: bool = False
+
+
+@app.get("/")
 def home():
-    return {"message": "working"}
+    return {"message": "FastAPI working"}
+
+@app.post("/todo")
+def create_todo(todo:Todo):
+    todos.append(todo)
+    return todo
