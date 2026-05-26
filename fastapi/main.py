@@ -24,7 +24,7 @@ class Todo(BaseModel):
 def home():
     return {"message": "FastAPI working"}
 
-@app.post("/todo")
+@app.post("/todos")
 def create_todo(todo:Todo):
     todos.append(todo)
     print(todos)
