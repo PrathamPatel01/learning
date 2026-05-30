@@ -64,7 +64,7 @@ def get_db():
         db.close()
 
 
-@app.get("/")
+@app.get("/get")
 def home():
     return {"message": "FastAPI PostgreSQL working"}
 
