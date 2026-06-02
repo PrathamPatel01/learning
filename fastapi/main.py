@@ -41,7 +41,7 @@
     
 #     return todos[todo_id]
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from database import SessionLocal, engine
@@ -97,3 +97,19 @@ def get_todos(
     todos = db.query(Todo).all()
 
     return todos
+
+
+@app.get("/todos/{todo_id}")
+def get_todo(
+    todo_id: int,
+    db: Session = Depends(get_db)
+):
+    todo = db.query(Todo).filter(Todo.id == todo_id).first()
+
+    if not todo:
+        raise HTTPException(
+            status_code=404,
+            detail="Todo not found"
+        )
+
+    return todo
